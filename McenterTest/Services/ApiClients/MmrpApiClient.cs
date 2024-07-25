@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace McenterTest.usecases.MMRP;
+namespace McenterTest.Services.Requests.usecases.MMRP;
 
 public class MmrpApiClient
 {

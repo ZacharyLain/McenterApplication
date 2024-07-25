@@ -1,4 +1,4 @@
-namespace McenterTest.Infrastructure.Requests;
+namespace McenterTest.Services.Requests.Infrastructure.Requests;
 
 public class ApmRequests
 {

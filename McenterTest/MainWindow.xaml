@@ -49,7 +49,7 @@
                 <RowDefinition Height="Auto"/> <!-- For the Button -->
                 <RowDefinition Height="*"/> <!-- For the TextBox to fill the remaining space -->
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Get NC Packages" Click="Button_Click"/>
+            <Button Grid.Row="0" Content="Get NC Packages" Click="getBearerToken"/>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <TextBox x:Name="Output1" materialDesign:HintAssist.Hint="Output" IsReadOnly="True" Height="Auto"  materialDesign:HintAssist.Background="#FFFFFF"
                          materialDesign:HintAssist.Foreground="White" Padding="10" Margin="0 0 0 20"/>

@@ -1,10 +1,10 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
-using McenterTest.Infrastructure;
-using McenterTest.usecases.MMRP;
+using McenterTest.Services.Requests.Infrastructure;
+using McenterTest.Services.Requests.usecases.MMRP;
 
-namespace McenterTest;
+namespace McenterTest.Services.Requests;
 
 /// <summary>
 /// Interaction logic for App.xaml

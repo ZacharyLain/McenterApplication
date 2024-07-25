@@ -1,4 +1,4 @@
-namespace McenterTest.Interfaces;
+namespace McenterTest.Services.Requests.Interfaces;
 
 public class IAuthenticationService
 {

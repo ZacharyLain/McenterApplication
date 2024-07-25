@@ -1,4 +1,4 @@
-namespace McenterTest.Models;
+namespace McenterTest.Services.Requests.Models;
 
 public class MmrpModels
 {
