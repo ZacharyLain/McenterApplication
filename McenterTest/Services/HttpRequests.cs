@@ -1,18 +1,43 @@
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace McenterTest.Services;
 
+/// <summary>
+/// Provides methods for making HTTP requests.
+/// </summary>
+/// <remarks>
+/// This class uses the <see cref="HttpClientFactory"/> to send HTTP requests to specified endpoints.
+/// </remarks>
 public class HttpRequests
 {
-    
     /// <summary>
-    /// This method sends out an http request and should return
-    /// an http response that can be displayed for the user
+    /// Sends an HTTP request to the specified URL extension with the given HTTP method and request body.
     /// </summary>
-    /// <param name="urlExtension">the extension to reach the endpoint, '/mmr/api/.../endpoint'</param>
-    /// <param name="httpMethod">type of request being sent, get/post/patch</param>
-    /// <param name="requestBody">the body of the request, should be formatted similar to JSON</param>
+    /// <param name="urlExtension">The URL extension to be concatenated with the base URL.</param>
+    /// <param name="httpMethod">The HTTP method to use for the request (e.g., GET, POST).</param>
+    /// <param name="requestBody">The request body to be sent with the request.</param>
+    /// <returns>The HTTP response message.</returns>
+    /// <remarks>
+    /// This method performs the following steps:
+    /// <list type="number">
+    /// <item>
+    /// <description>Concatenates the base URL and the URL extension to form the complete request URL.</description>
+    /// </item>
+    /// <item>
+    /// <description>Creates an <see cref="HttpRequestMessage"/> for non-GET requests.</description>
+    /// </item>
+    /// <item>
+    /// <description>Sends the request using the <see cref="HttpClient"/> from <see cref="HttpClientFactory"/> and captures the response.</description>
+    /// </item>
+    /// <item>
+    /// <description>Throws a <see cref="SystemException"/> if the response is null or if the response indicates an unsuccessful status.</description>
+    /// </item>
+    /// <item>
+    /// <description>Returns the response message.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    /// <exception cref="SystemException">Thrown when the response from the HttpClient is null or if the response indicates an unsuccessful status.</exception>
     public static HttpResponseMessage? httpRequest(string urlExtension, HttpMethod httpMethod, List<KeyValuePair<string, string>> requestBody)
     {
         // concatenate the baseUrl and the extension to get the endpoint

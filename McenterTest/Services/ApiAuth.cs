@@ -8,7 +8,7 @@ using McenterTest.Services.Requests.Models;
 namespace McenterTest.Models;
 
 /// <summary>
-/// The <see cref="AuthToken"/> class is responsible for handling the extraction of credential file contents 
+/// The <see cref="ApiAuth"/> class is responsible for handling the extraction of credential file contents 
 /// and generation of a bearer token for authentication purposes.
 /// </summary>
 /// <remarks>
@@ -25,7 +25,7 @@ namespace McenterTest.Models;
 /// </item>
 /// </list>
 /// </remarks>
-public class AuthToken
+public class ApiAuth
 {
     private string? baseUrl;
     private string? opennessTokenFilePath = Environment.GetEnvironmentVariable("CREDENTIAL_FILE_PATH");

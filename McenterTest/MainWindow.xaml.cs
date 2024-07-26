@@ -12,7 +12,7 @@ namespace McenterTest;
 /// </summary>
 public partial class MainWindow : Window
 {
-    AuthToken authToken = new AuthToken();
+    ApiAuth apiAuth = new ApiAuth();
     private JsonSerializerOptions serializerOptions;
     
     // Constructor for the main window
@@ -34,7 +34,7 @@ public partial class MainWindow : Window
 
     private void getBearerToken(object sender, RoutedEventArgs e)
     {
-        Output1.Text = authToken.getBearerToken() ?? throw new InvalidOperationException("Error when getting token/setting text");
+        Output1.Text = apiAuth.getBearerToken() ?? throw new InvalidOperationException("Error when getting token/setting text");
     }
 
     private void getNCPackages(object sender, RoutedEventArgs e)
