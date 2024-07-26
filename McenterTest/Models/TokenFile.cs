@@ -1,4 +1,4 @@
-namespace McenterTest.Services.Requests.Models;
+namespace McenterTest.Models;
 
 public class TokenFile
 {

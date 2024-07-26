@@ -43,9 +43,9 @@ public class AuthToken
 
     private bool checkBearerToken()
     {
-        // check if token exists and if it is valid for at least 5 minutes
-        if (bearerToken != null &&
-            bearerToken.Expires_at > DateTime.Now.AddMinutes(5))
+        // check if token exists and if it is valid for less than 5 minutes
+        if (bearerToken == null ||
+            bearerToken.Expires_at < DateTime.Now.AddMinutes(5))
         {
             return true;
         }
