@@ -1,108 +1,13 @@
 ﻿<Window x:Class="McenterTest.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="600" Width="800"
-        Background="#333333" Foreground="White"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        FontFamily="{DynamicResource MaterialDesignFont}">
-    <Window.Resources>
-        <!-- Styles for TextBox and Button -->
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="#444444"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="#555555"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#666666"/>
-            <Setter Property="Padding" Value="10"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-    </Window.Resources>
-
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1200"
+        Background="#333333" Foreground="White">
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Section 1 -->
-        <Grid Grid.Row="0" Grid.Column="0" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/> <!-- For the Button -->
-                <RowDefinition Height="*"/> <!-- For the TextBox to fill the remaining space -->
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Get Bearer Token" Click="getBearerToken"/>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <TextBox x:Name="Output1" materialDesign:HintAssist.Hint="Output" IsReadOnly="True" Height="Auto"  materialDesign:HintAssist.Background="#FFFFFF"
-                         materialDesign:HintAssist.Foreground="White" Padding="10" Margin="0 0 0 20" TextWrapping="Wrap"/>
-            </ScrollViewer>
-        </Grid>
-
-        <!-- Section 2 -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/> <!-- For the Button -->
-                <RowDefinition Height="*"/> <!-- For the TextBox to fill the remaining space -->
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Get NC Packages" Click="getNCPackages"/>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <TextBox x:Name="Output2" materialDesign:HintAssist.Hint="Output" IsReadOnly="True" Height="Auto"  materialDesign:HintAssist.Background="#FFFFFF"
-                         materialDesign:HintAssist.Foreground="White" Padding="10" Margin="0 0 0 20" TextWrapping="Wrap"/>
-            </ScrollViewer>
-        </Grid>
-
-        <!-- Section 3 -->
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
-            <TextBox x:Name="Input31" materialDesign:HintAssist.Hint="Input 1"/>
-            <TextBox x:Name="Input32" materialDesign:HintAssist.Hint="Input 2"/>
-            <TextBox x:Name="Input33" materialDesign:HintAssist.Hint="Input 3"/>
-            <Button Content="Button 3" Click="Button_Click"/>
-            <TextBox x:Name="Output3" materialDesign:HintAssist.Hint="Output" IsReadOnly="True"/>
-        </StackPanel>
-
-        <!-- Section 4 -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
-            <TextBox x:Name="Input41" materialDesign:HintAssist.Hint="Input 1"/>
-            <TextBox x:Name="Input42" materialDesign:HintAssist.Hint="Input 2"/>
-            <TextBox x:Name="Input43" materialDesign:HintAssist.Hint="Input 3"/>
-            <Button Content="Button 4" Click="Button_Click"/>
-            <TextBox x:Name="Output4" materialDesign:HintAssist.Hint="Output" IsReadOnly="True"/>
-        </StackPanel>
-
-        <!-- Section 5 -->
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10">
-            <TextBox x:Name="Input51" materialDesign:HintAssist.Hint="Input 1"/>
-            <TextBox x:Name="Input52" materialDesign:HintAssist.Hint="Input 2"/>
-            <TextBox x:Name="Input53" materialDesign:HintAssist.Hint="Input 3"/>
-            <Button Content="Button 5" Click="Button_Click"/>
-            <TextBox x:Name="Output5" materialDesign:HintAssist.Hint="Output" IsReadOnly="True"/>
-        </StackPanel>
-
-        <!-- Section 6 -->
-        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10">
-            <TextBox x:Name="Input61" materialDesign:HintAssist.Hint="Input 1"/>
-            <TextBox x:Name="Input62" materialDesign:HintAssist.Hint="Input 2"/>
-            <TextBox x:Name="Input63" materialDesign:HintAssist.Hint="Input 3"/>
-            <Button Content="Button 6" Click="Button_Click"/>
-            <TextBox x:Name="Output6" materialDesign:HintAssist.Hint="Output" IsReadOnly="True"/>
-        </StackPanel>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

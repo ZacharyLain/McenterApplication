@@ -1,25 +1,11 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-using McenterTest.Services.Requests.Infrastructure;
-using McenterTest.Services.Requests.usecases.MMRP;
+﻿using System.Windows;
 
-namespace McenterTest.Services.Requests;
+namespace McenterTest;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
 {
-    private IHost _host;
-    
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        base.OnStartup(e);
-    }
-}
-
-internal interface IHost
-{
-    
+ 
 }
