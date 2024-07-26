@@ -11,4 +11,7 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Ignore the clientcredentials and certificate files
+*.crt
 *.json
