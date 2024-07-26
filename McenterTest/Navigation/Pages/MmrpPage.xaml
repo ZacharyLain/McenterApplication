@@ -16,7 +16,7 @@
     <Page.Resources>
         <!-- Styles for TextBox and Button -->
         <Style TargetType="TextBox" BasedOn="{StaticResource DarkModeText}">
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="#444444"/>
             <Setter Property="BorderBrush" Value="#555555"/>
             <Setter Property="Padding" Value="5"/>
