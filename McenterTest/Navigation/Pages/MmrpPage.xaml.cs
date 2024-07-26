@@ -65,6 +65,18 @@ public partial class MmrpPage
         string formattedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
 
         createPack_Output.Text = formattedJson;
-        Console.Out.WriteLine("\n\n" + formattedJson + "\n\n");
+        
+        resetCreatePack();
+    }
+    
+    private void resetCreatePack()
+    {
+        createPack_Name.Text = "";
+        createPack_Id.Text = "";
+        createPack_Desc.Text = "";
+        createPack_Author.Text = "";
+        createPack_Trial.Text = "";
+        createPack_ManVerification.Text = "";
+        createPack_Output.Text = "";
     }
 }
