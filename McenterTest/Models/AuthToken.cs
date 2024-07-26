@@ -39,6 +39,7 @@ public class AuthToken
         //extract baseURL from openness token
         var baseURI = (tokenFile != null) ? new Uri(this.tokenFile.IdentityServiceUrl): throw new Exception($"Openness token not available");
         baseUrl =  baseURI.Scheme + "://" + baseURI.Authority;
+        HttpClientFactory.setBaseUrl(baseUrl);
     }
 
     private bool checkBearerToken()

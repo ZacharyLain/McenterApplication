@@ -16,6 +16,7 @@ public static class HttpClientFactory
     private static HttpClientHandler httpClientHandler;
     private static DateTime lastInitializationTime;
     private static readonly TimeSpan TimeoutPeriod = TimeSpan.FromMinutes(10);
+    private static string baseUrl;
 
     static HttpClientFactory()
     {
@@ -47,6 +48,11 @@ public static class HttpClientFactory
         lastInitializationTime = DateTime.UtcNow;
     }
 
+    public static void setBaseUrl(string mcenterBaseUrl)
+    {
+        baseUrl = mcenterBaseUrl;
+    }
+    
     public static HttpClient GetHttpClient()
     {
         if (DateTime.UtcNow - lastInitializationTime > TimeoutPeriod)
@@ -55,5 +61,10 @@ public static class HttpClientFactory
         }
 
         return httpClient;
+    }
+
+    public static string getBaseUrl()
+    {
+        return baseUrl;
     }
 }
