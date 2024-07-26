@@ -7,13 +7,13 @@ public class HttpRequests
 {
     
     /// <summary>
-    /// This method sends out an http request and should respond with
-    /// and http response that can be displayed for the user
+    /// This method sends out an http request and should return
+    /// an http response that can be displayed for the user
     /// </summary>
     /// <param name="urlExtension">the extension to reach the endpoint, '/mmr/api/.../endpoint'</param>
     /// <param name="httpMethod">type of request being sent, get/post/patch</param>
     /// <param name="requestBody">the body of the request, should be formatted similar to JSON</param>
-    public HttpResponseMessage? httpRequest(string urlExtension, HttpMethod httpMethod, List<KeyValuePair<string, string>> requestBody)
+    public static HttpResponseMessage? httpRequest(string urlExtension, HttpMethod httpMethod, List<KeyValuePair<string, string>> requestBody)
     {
         // concatenate the baseUrl and the extension to get the endpoint
         string requestUrl = HttpClientFactory.getBaseUrl() + urlExtension;

@@ -49,21 +49,25 @@
                 <RowDefinition Height="Auto"/> <!-- For the Button -->
                 <RowDefinition Height="*"/> <!-- For the TextBox to fill the remaining space -->
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Get NC Packages" Click="getBearerToken"/>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Button Grid.Row="0" Content="Get Bearer Token" Click="getBearerToken"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <TextBox x:Name="Output1" materialDesign:HintAssist.Hint="Output" IsReadOnly="True" Height="Auto"  materialDesign:HintAssist.Background="#FFFFFF"
-                         materialDesign:HintAssist.Foreground="White" Padding="10" Margin="0 0 0 20"/>
+                         materialDesign:HintAssist.Foreground="White" Padding="10" Margin="0 0 0 20" TextWrapping="Wrap"/>
             </ScrollViewer>
         </Grid>
 
         <!-- Section 2 -->
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
-            <TextBox x:Name="Input21" materialDesign:HintAssist.Hint="Input 1"/>
-            <TextBox x:Name="Input22" materialDesign:HintAssist.Hint="Input 2"/>
-            <TextBox x:Name="Input23" materialDesign:HintAssist.Hint="Input 3"/>
-            <Button Content="Button 2" Click="Button_Click"/>
-            <TextBox x:Name="Output2" materialDesign:HintAssist.Hint="Output" IsReadOnly="True"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- For the Button -->
+                <RowDefinition Height="*"/> <!-- For the TextBox to fill the remaining space -->
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="Get NC Packages" Click="getNCPackages"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <TextBox x:Name="Output2" materialDesign:HintAssist.Hint="Output" IsReadOnly="True" Height="Auto"  materialDesign:HintAssist.Background="#FFFFFF"
+                         materialDesign:HintAssist.Foreground="White" Padding="10" Margin="0 0 0 20" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Grid>
 
         <!-- Section 3 -->
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
