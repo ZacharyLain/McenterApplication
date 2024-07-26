@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace McenterTest.Services;
 
@@ -38,15 +39,18 @@ public class HttpRequests
     /// </list>
     /// </remarks>
     /// <exception cref="SystemException">Thrown when the response from the HttpClient is null or if the response indicates an unsuccessful status.</exception>
-    public static HttpResponseMessage? httpRequest(string urlExtension, HttpMethod httpMethod, List<KeyValuePair<string, string>> requestBody)
+    public static HttpResponseMessage? httpRequest(string urlExtension, HttpMethod httpMethod, JsonContent requestBody)
     {
         // concatenate the baseUrl and the extension to get the endpoint
         string requestUrl = HttpClientFactory.getBaseUrl() + urlExtension;
         
         // create request for non Get messages
-        HttpRequestMessage request = new(httpMethod, requestUrl);
+        HttpRequestMessage request = new(httpMethod, requestUrl)
+        {
+            Content = requestBody
+        };
         
-        // create response variable to capture http response
+        // create response message to capture the response
         HttpResponseMessage? response = null;
         
         // send requests

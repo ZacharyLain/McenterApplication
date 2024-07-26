@@ -59,13 +59,12 @@ public partial class MmrpPage
         };
 
         var body = JsonContent.Create(ncPackage);
-        body.ReadAsStringAsync().Result.ToString();
         
         string responseText = HttpRequests.httpRequest("/mmrp/api/programs/v5/ncpackages", HttpMethod.Post, body).Content.ReadAsStringAsync().Result;
         var jsonObject = JsonConvert.DeserializeObject(responseText);
         string formattedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
 
-        Output3.Text = formattedJson;
+        createPack_Output.Text = formattedJson;
         Console.Out.WriteLine("\n\n" + formattedJson + "\n\n");
     }
 }
