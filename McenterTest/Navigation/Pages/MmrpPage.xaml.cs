@@ -48,6 +48,17 @@ public partial class MmrpPage
 
     private void createNCPackages(object sender, RoutedEventArgs e)
     {
+        try
+        {
+            precheckTF(createPack_Trial.Text);
+            precheckTF(createPack_ManVerification.Text);
+        }
+        catch (ArgumentException)
+        {
+            createPack_Output.Text = "Invalid input for trial run or manual verification. Please enter 'true', 't', 'false', or 'f'.";
+            return;
+        }
+        
         NcPackage ncPackage = new()
         {
             Name = createPack_Name.Text,
@@ -78,5 +89,17 @@ public partial class MmrpPage
         createPack_Trial.Text = "";
         createPack_ManVerification.Text = "";
         createPack_Output.Text = "";
+    }
+
+    private string precheckTF(string value)
+    {
+        return value switch
+        {
+            "true" => "true",
+            "t" => "true",
+            "false" => "false",
+            "f" => "false",
+            _ => throw new ArgumentException()
+        };
     }
 }
