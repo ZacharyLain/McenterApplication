@@ -30,9 +30,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="MVVM\Model\" />
-      <Folder Include="MVVM\ViewModel\" />
-      <Folder Include="MVVM\View\" />
+      <Folder Include="UI\ModelViewViewModel\Model\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="UI\Resources\Small_Logo.png" />
+      <Resource Include="UI\Resources\Small_Logo.png" />
     </ItemGroup>
 
 </Project>

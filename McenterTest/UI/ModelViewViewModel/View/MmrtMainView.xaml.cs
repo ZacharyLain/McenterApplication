@@ -1,11 +1,22 @@
+using System.Windows;
 using System.Windows.Controls;
 
-namespace McenterTest.UI.ModelViewViewModel.View;
-
-public partial class MmrtMainView : UserControl
+namespace McenterTest.UI.ModelViewViewModel.View
 {
-    public MmrtMainView()
+    public partial class MmrtMainView : UserControl
     {
-        InitializeComponent();
+        public MmrtMainView()
+        {
+            InitializeComponent();
+        }
+
+        public static readonly DependencyProperty SelectedViewModelProperty =
+            DependencyProperty.Register("SelectedViewModel", typeof(object), typeof(MmrtMainView), new PropertyMetadata(null));
+
+        public object SelectedViewModel
+        {
+            get { return GetValue(SelectedViewModelProperty); }
+            set { SetValue(SelectedViewModelProperty, value); }
+        }
     }
 }

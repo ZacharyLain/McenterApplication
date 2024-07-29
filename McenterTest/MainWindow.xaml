@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:McenterTest.UI.ModelViewViewModel.ViewModel"
+        xmlns:view="clr-namespace:McenterTest.UI.ModelViewViewModel.View"
         mc:Ignorable="d"
         Height="800" Width="1200"
         WindowStyle="None"
-        ResizeMode="NoResize"
-        Background="Transparent"
         AllowsTransparency="True"
+        Background="Transparent"
+        WindowState="Maximized"
+        Title="Mcenter Platform (Intec Automated)"
+        WindowStartupLocation="CenterScreen"
         Icon="pack://application:,,,/McenterTest;component/Ui/Resources/Small_Logo.png">
     
     <Window.DataContext>
@@ -17,26 +20,24 @@
     </Window.DataContext>
     
     <Border Background="#1C133C" CornerRadius="20">
-        
-        <!-- Define Definitions for the Grid used on our window -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <Border Grid.Row="0" Grid.ColumnSpan="2"
                     CornerRadius="20, 20, 0, 0"
                     Background="#13082A"/>
             <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                     CornerRadius="20, 0, 0, 20"
                     Background="#13082A"/>
-            
+
             <!-- Title Bar -->
             <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="Intec Automated Controls"
@@ -47,7 +48,7 @@
                            Foreground="White"
                            Opacity="0.6"/>
             </StackPanel>
-            
+
             <!-- Navigation Tab -->
             <StackPanel Grid.Row="1" Grid.Column="0">
                 <RadioButton Content="Home"
@@ -74,14 +75,11 @@
                              FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
-            
+
             <!-- Content Area -->
             <ContentControl Grid.Column="1" Grid.Row="1"
                             Margin="10"
                             Content="{Binding CurrentView}"/>
         </Grid>
-        
-        
-        
     </Border>
 </Window>

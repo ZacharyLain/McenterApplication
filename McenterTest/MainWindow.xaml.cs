@@ -13,11 +13,5 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        
-        MainWindowNavigation.ChangePage(new MainPage());
-        
-        // Get current directory
-        string currentDirectory = Directory.GetCurrentDirectory();
-        Console.WriteLine(currentDirectory);
     }
 }

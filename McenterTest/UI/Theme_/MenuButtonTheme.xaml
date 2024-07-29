@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+    <!-- Define the style for the RadioButton on the side menu -->
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="MenuButtonTheme">
+        <Style.Setters>
+            
+            <!-- Set the default template for the RadioButton -->
+            <!-- This template will be used to define the appearance of the RadioButton -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+                            
+                            <!-- The TemplateBinding grabs the text from the RadioButton Content property -->
+                            <!-- This allows us to set the text of the RadioButton in the MainWindow.xaml file -->
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="50,0,0,0"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+            <!-- Set the default properties for the RadioButton -->
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style.Setters>
+        
+        <!-- Define the triggers for the RadioButton -->
+        <!-- These triggers will change the appearance of the RadioButton when certain conditions are met -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value=" 	#2a203f"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#1C133C"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

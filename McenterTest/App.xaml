@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModel="clr-namespace:McenterTest.UI.ModelViewViewModel.ViewModel"
              xmlns:view="clr-namespace:McenterTest.UI.ModelViewViewModel.View"
-             StartupUri="MainWindow.xaml"
-             >
+             xmlns:mmrtSubViewModel="clr-namespace:McenterTest.UI.ModelViewViewModel.ViewModel.MmrtSubViewModel"
+             xmlns:mmrtSubView="clr-namespace:McenterTest.UI.ModelViewViewModel.View.MmrtSubView"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,13 +26,22 @@
                 <Setter Property="BorderBrush" Value="White"/>
             </Style>
             
-            <!-- Data Template -->
+            <!-- Data Templates -->
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:MmrtMainViewModel}">
                 <view:MmrtMainView/>
             </DataTemplate>
+            
+            <!-- Mmrt Subview Data Templates -->
+            <DataTemplate DataType="{x:Type mmrtSubViewModel:GetToolInstancesViewModel}">
+                <mmrtSubView:GetToolInstancesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type mmrtSubViewModel:CreateToolInstancesViewModel}">
+                <mmrtSubView:CreateToolInstancesView/>
+            </DataTemplate>
+            <mmrtSubViewModel:GetToolInstancesViewModel x:Key="GetToolInstancesViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
