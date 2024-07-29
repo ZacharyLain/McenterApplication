@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using McenterTest.Navigation;
 using McenterTest.Pages;
 
@@ -14,5 +15,9 @@ public partial class MainWindow : Window
         InitializeComponent();
         
         MainWindowNavigation.ChangePage(new MainPage());
+        
+        // Get current directory
+        string currentDirectory = Directory.GetCurrentDirectory();
+        Console.WriteLine(currentDirectory);
     }
 }
