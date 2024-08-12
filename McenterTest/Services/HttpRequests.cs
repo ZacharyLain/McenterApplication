@@ -1,5 +1,7 @@
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using McenterTest.Models;
 
 namespace McenterTest.Services;
 
@@ -11,6 +13,60 @@ namespace McenterTest.Services;
 /// </remarks>
 public class HttpRequests
 {
+    static ApiAuth apiAuth = new();
+    
+    /// <summary>
+    /// Sends an HTTP request to the specified URL with the given method and content.
+    /// </summary>
+    /// <param name="url">The URL to send the request to.</param>
+    /// <param name="method">The HTTP method to use (e.g., GET, POST).</param>
+    /// <param name="content">The content to send with the request.</param>
+    /// <returns>The HTTP response message.</returns>
+    /// <remarks>
+    /// This method creates an HTTP request message with the specified URL, method, and content,
+    /// sends the request using the <see cref="HttpClient"/> instance, and returns the response message.
+    /// </remarks>
+    public static HttpResponseMessage? getBearerToken(string requestUrl, HttpMethod httpMethod, List<KeyValuePair<string, string>> requestBody)
+    {
+        // create request including header
+        // This request is in the x-www-form-urlencoded format rather than JSON
+        HttpRequestMessage request = new(httpMethod, requestUrl);
+        request.Headers.Add("Accept", "application/json; charset=utf-8");
+        request.Content = new FormUrlEncodedContent(requestBody);
+        request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded")
+        {
+            CharSet = "UTF-8"
+        };
+
+        HttpResponseMessage response = new();
+        
+        // send request and save response
+        try
+        {
+            response = HttpClientFactory.GetHttpClient().SendAsync(request).Result;
+            if (response == null)
+            {
+                throw new HttpRequestException($"Request returned with error: Response from HttpClient is null");
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"Request returned with error: {requestUrl} - {response.StatusCode} - {response.Content.ReadAsStringAsync().Result}");
+            }
+        }
+        catch (Exception e)
+        {
+            return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError)
+            {
+                Content = new StringContent(e.Message)
+            };
+        }
+        
+        // return response
+        return response;
+    }
+    
     /// <summary>
     /// Sends an HTTP request to the specified URL extension with the given HTTP method and request body.
     /// </summary>
@@ -52,27 +108,49 @@ public class HttpRequests
         
         // create response message to capture the response
         HttpResponseMessage? response = null;
-        
-        // send requests
-        if (httpMethod.Equals(HttpMethod.Get))
-        {
-            // get messages only require the url endpoint
-            response = HttpClientFactory.GetHttpClient().GetAsync(requestUrl).Result;
-        }
-        else
-        {
-            // non get messages require the endpoint and a body
-            response = HttpClientFactory.GetHttpClient().SendAsync(request).Result;
-        }
-        
-        if (response == null)
-        {
-            throw new SystemException("Error Occurred: Response from HttpClient is null");
-        }
 
-        if (!response.IsSuccessStatusCode)
+        try
         {
-            throw new SystemException($"Request returned with error: {requestUrl} - {response.StatusCode} - {response.Content.ReadAsStringAsync().Result}");
+            ApiAuth.getBearerToken();
+        }
+        catch (Exception e)
+        {
+            return new HttpResponseMessage(System.Net.HttpStatusCode.NetworkAuthenticationRequired)
+            {
+                Content = new StringContent(e.Message)
+            };
+        }
+        
+        try
+        {
+            // send requests
+            if (httpMethod.Equals(HttpMethod.Get))
+            {
+                // get messages only require the url endpoint
+                response = HttpClientFactory.GetHttpClient().GetAsync(requestUrl).Result;
+            }
+            else
+            {
+                // non get messages require the endpoint and a body
+                response = HttpClientFactory.GetHttpClient().SendAsync(request).Result;
+            }
+        
+            if (response == null)
+            {
+                throw new SystemException("Error Occurred: Response from HttpClient is null");
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new SystemException($"Request returned with error: {requestUrl} - {response.StatusCode} - {response.Content.ReadAsStringAsync().Result}");
+            }
+        }
+        catch (Exception e)
+        {
+            return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError)
+            {
+                Content = new StringContent(e.Message)
+            };
         }
         
         // return response

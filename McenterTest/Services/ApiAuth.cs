@@ -1,4 +1,5 @@
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -27,12 +28,12 @@ namespace McenterTest.Models;
 /// </remarks>
 public class ApiAuth
 {
-    private string? baseUrl;
-    private string? opennessTokenFilePath = Environment.GetEnvironmentVariable("CREDENTIAL_FILE_PATH");
-    private TokenFile? tokenFile;
-    private BearerToken? bearerToken;
-    private JsonSerializerOptions serializerOptions;
-    private HttpClient httpClient;
+    private static string? baseUrl;
+    private static string? opennessTokenFilePath = Environment.GetEnvironmentVariable("CREDENTIAL_FILE_PATH");
+    private static TokenFile? tokenFile;
+    private static BearerToken? bearerToken;
+    private static JsonSerializerOptions serializerOptions;
+    private static HttpClient httpClient;
 
     /// <summary>
     /// Extracts the contents of the token file specified by the environment variable <c>opennessTokenFilePath</c>.
@@ -58,7 +59,7 @@ public class ApiAuth
     /// </list>
     /// </remarks>
     /// <exception cref="Exception">Thrown when <c>opennessTokenFilePath</c> is not set or when the token file is not available.</exception>
-    private void extractFileContents()
+    private static void extractFileContents()
     {
         // check if token path is set
         if (string.IsNullOrWhiteSpace(opennessTokenFilePath))
@@ -78,7 +79,7 @@ public class ApiAuth
         tokenFile = JsonSerializer.Deserialize<TokenFile>(credentialFileText, serializerOptions);
             
         //extract baseURL from openness token
-        var baseURI = (tokenFile != null) ? new Uri(this.tokenFile.IdentityServiceUrl): throw new Exception($"Openness token not available");
+        var baseURI = (tokenFile != null) ? new Uri(tokenFile.IdentityServiceUrl): throw new Exception($"Openness token not available");
         baseUrl =  baseURI.Scheme + "://" + baseURI.Authority;
         HttpClientFactory.setBaseUrl(baseUrl);
     }
@@ -99,7 +100,7 @@ public class ApiAuth
     /// </list>
     /// </remarks>
     /// <exception cref="Exception">Thrown when the <see cref="tokenFile"/> is <c>null</c>.</exception>
-    private bool checkBearerToken()
+    private static bool checkBearerToken()
     {
         // check if token exists and if it is valid for less than 5 minutes
         if (bearerToken == null ||
@@ -115,44 +116,6 @@ public class ApiAuth
         }
 
         return false;
-    }
-
-    /// <summary>
-    /// Sends an HTTP request to the specified URL with the given method and content.
-    /// </summary>
-    /// <param name="url">The URL to send the request to.</param>
-    /// <param name="method">The HTTP method to use (e.g., GET, POST).</param>
-    /// <param name="content">The content to send with the request.</param>
-    /// <returns>The HTTP response message.</returns>
-    /// <remarks>
-    /// This method creates an HTTP request message with the specified URL, method, and content,
-    /// sends the request using the <see cref="HttpClient"/> instance, and returns the response message.
-    /// </remarks>
-    private HttpResponseMessage? sendRequest(string requestUrl, HttpMethod httpMethod, List<KeyValuePair<string, string>> requestBody)
-    {
-        // create request including header
-        HttpRequestMessage request = new(httpMethod, requestUrl);
-        request.Headers.Add("Accept", "application/json; charset=utf-8");
-        request.Content = new FormUrlEncodedContent(requestBody);
-        request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded")
-        {
-            CharSet = "UTF-8"
-        };
-
-        // send request and save response
-        var response = HttpClientFactory.GetHttpClient().SendAsync(request).Result;
-        if (response == null)
-        {
-            throw new SystemException("Error Occurred: Response from HttpClient is null");
-        }
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new SystemException($"Request returned with error: {requestUrl} - {response.StatusCode} - {response.Content.ReadAsStringAsync().Result}");
-        }
-        
-        // return response
-        return response;
     }
     
     /// <summary>
@@ -183,7 +146,7 @@ public class ApiAuth
     /// If the token does not need to be generated, it logs a message indicating the token is still valid.
     /// </remarks>
     /// <exception cref="Exception">Thrown when an error occurs during token generation or deserialization.</exception>
-    private void generateBearerToken()
+    private static void generateBearerToken()
     {
         // check if a token needs to be generated
         if (checkBearerToken())
@@ -200,11 +163,9 @@ public class ApiAuth
                     new("client_id", tokenFile.IdentityServer4Client),
                     new("ClientAuthPayload", JsonSerializer.Serialize(tokenFile, serializerOptions)),
                 };
-
-                HttpMethod post = HttpMethod.Post;
                 
                 // Send request to endpoint with body as message
-                HttpResponseMessage? response = sendRequest(requestUrl, post, requestBody);
+                HttpResponseMessage? response = HttpRequests.getBearerToken(requestUrl, HttpMethod.Post, requestBody);
                 string responseText = response.Content.ReadAsStringAsync().Result;
 
                 // deserialize bearer token
@@ -215,10 +176,12 @@ public class ApiAuth
                 }
 
                 // set expiration date based on the timestamp of the response and the "expires_in" value
-                bearerToken.Expires_at = (bearerToken != null && response.Headers.Date != null) ? response.Headers.Date.Value.ToLocalTime().AddSeconds(bearerToken.Expires_in).DateTime : DateTime.Now;
+                bearerToken.Expires_at = (bearerToken != null && response.Headers.Date != null)
+                    ? response.Headers.Date.Value.ToLocalTime().AddSeconds(bearerToken.Expires_in).DateTime : DateTime.Now;
 
                 // set bearer token as default header for all requests
-                HttpClientFactory.GetHttpClient().DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken?.Access_token);
+                HttpClientFactory.GetHttpClient().DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", bearerToken?.Access_token);
 
                 Console.WriteLine($"Bearer Token Generated: Bearer token is valid until, {bearerToken?.Expires_at}");
             }
@@ -253,14 +216,14 @@ public class ApiAuth
     /// </list>
     /// </remarks>
     /// <exception cref="Exception">Thrown when an error occurs during the process of getting the bearer token.</exception>
-    public string? getBearerToken()
+    public static string? getBearerToken()
     {
         try
         {
             extractFileContents();
             generateBearerToken();
 
-            return this.bearerToken?.Access_token;
+            return bearerToken?.Access_token;
         }
         catch (Exception e)
         {
