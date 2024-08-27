@@ -124,16 +124,9 @@ public class HttpRequests
         try
         {
             // send requests
-            if (httpMethod.Equals(HttpMethod.Get))
-            {
-                // get messages only require the url endpoint
-                response = HttpClientFactory.GetHttpClient().GetAsync(requestUrl).Result;
-            }
-            else
-            {
-                // non get messages require the endpoint and a body
-                response = HttpClientFactory.GetHttpClient().SendAsync(request).Result;
-            }
+            // get messages only require the url endpoint / non get messages require the endpoint and a body
+            response = httpMethod.Equals(HttpMethod.Get) ? HttpClientFactory.GetHttpClient().GetAsync(requestUrl).Result :
+                                                            HttpClientFactory.GetHttpClient().SendAsync(request).Result; 
         
             if (response == null)
             {
