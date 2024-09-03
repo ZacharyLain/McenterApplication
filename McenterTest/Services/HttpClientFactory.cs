@@ -1,3 +1,4 @@
+using McenterTest.Logging;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Authentication;
@@ -20,9 +21,11 @@ public static class HttpClientFactory
     private static DateTime lastInitializationTime;
     private static readonly TimeSpan TimeoutPeriod = TimeSpan.FromMinutes(10);
     private static string baseUrl;
+    private static LogWriter logWriter = LogWriter.Instance;
 
     static HttpClientFactory()
     {
+        logWriter.LogWithTimestamp("Creating HttpClientFactory Instance", LogWriter.LogLevel.Info);
         InitializeHttpClient();
     }
 
@@ -30,7 +33,7 @@ public static class HttpClientFactory
     /// Configures the HttpClientHandler with the required SSL certificates.
     /// </summary>
     /// <returns>An instance of <see cref="HttpClientHandler"/> configured with SSL certificates.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when the SSL certificate is not found in the environment variables.</exception>
+    /// <exception cref="ArgumentException">Thrown when the SSL certificate is not found in the environment variables.</exception>
     /// <remarks>
     /// This method performs the following steps:
     /// <list type="number">
@@ -47,11 +50,26 @@ public static class HttpClientFactory
     /// </remarks>
     private static HttpClientHandler setCertificates()
     {
+        // create handler to deal with SSL certification
         var handler = new HttpClientHandler();
         handler.ClientCertificateOptions = ClientCertificateOption.Manual;
         handler.SslProtocols = SslProtocols.Tls12;
-        handler.ClientCertificates.Add(new X509Certificate2(Environment.GetEnvironmentVariable("SSL_CERTIFICATE")
-                                                            ?? throw new InvalidOperationException("Error Occurred: An error occurred while getting the SSL Certificate.")));
+
+        // add the client certificate, may be an error if pathing is wrong
+        try
+        {
+            handler.ClientCertificates.Add(new X509Certificate2("../../../McenterCA.crt"));
+        }
+        catch (Exception ex)
+        {
+            // log the error and throw an exception
+            logWriter.LogWithTimestamp("An error occurred while getting the SSL Certificate. Check your environment", LogWriter.LogLevel.Error);
+            throw new ArgumentException("Error Occurred: An error occurred while setting the client SSL Certificate.");
+        }
+
+        // success
+        logWriter.LogWithTimestamp("Handler successfully created", LogWriter.LogLevel.Info);
+
         return handler;
     }
 
@@ -98,6 +116,7 @@ public static class HttpClientFactory
     /// </remarks>
     public static void setBaseUrl(string mcenterBaseUrl)
     {
+        logWriter.LogWithTimestamp($"Base URL: {mcenterBaseUrl}", LogWriter.LogLevel.Info);
         baseUrl = mcenterBaseUrl;
     }
     
@@ -123,8 +142,12 @@ public static class HttpClientFactory
     {
         if (DateTime.UtcNow - lastInitializationTime > TimeoutPeriod)
         {
+            logWriter.LogWithTimestamp("Time limit has been exceeded. Generating a new token.", LogWriter.LogLevel.Info);
+
             InitializeHttpClient();
         }
+
+        logWriter.LogWithTimestamp($"Time remaining: {TimeoutPeriod - (DateTime.UtcNow - lastInitializationTime)}", LogWriter.LogLevel.Info);
 
         return httpClient;
     }

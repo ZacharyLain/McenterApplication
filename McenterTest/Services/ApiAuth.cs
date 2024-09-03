@@ -1,8 +1,9 @@
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Windows;
+using McenterTest.Utilities;
 using McenterTest.Services;
 using McenterTest.Services.Requests.Models;
 
@@ -29,11 +30,11 @@ namespace McenterTest.Models;
 public class ApiAuth
 {
     private static string? baseUrl;
-    private static string? opennessTokenFilePath = Environment.GetEnvironmentVariable("CREDENTIAL_FILE_PATH");
+    private static string? opennessTokenFilePath = "../../../OpenAPIClientCredentials.json";
     private static TokenFile? tokenFile;
     private static BearerToken? bearerToken;
     private static JsonSerializerOptions serializerOptions;
-    private static HttpClient httpClient;
+    private static LogWriter logWriter = LogWriter.Instance;
 
     /// <summary>
     /// Extracts the contents of the token file specified by the environment variable <c>opennessTokenFilePath</c>.
@@ -81,7 +82,10 @@ public class ApiAuth
         //extract baseURL from openness token
         var baseURI = (tokenFile != null) ? new Uri(tokenFile.IdentityServiceUrl): throw new Exception($"Openness token not available");
         baseUrl =  baseURI.Scheme + "://" + baseURI.Authority;
+
         HttpClientFactory.setBaseUrl(baseUrl);
+
+        logWriter.LogWithTimestamp($"Setting BaseUrl {HttpClientFactory.getBaseUrl()}", LogWriter.LogLevel.Debug);
     }
 
     /// <summary>
@@ -172,6 +176,10 @@ public class ApiAuth
                 bearerToken = JsonSerializer.Deserialize<BearerToken>(responseText, serializerOptions);
                 if (bearerToken == null)
                 {
+                    // Display popup for acknowledgement
+                    MessageBox.Show($"Bearer token could not be deserialized!\nSee logs", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    logWriter.LogWithTimestamp($"Bearer token is null. Token could not be deserialized from '{responseText}'", LogWriter.LogLevel.Error);
                     throw new Exception($"Error Occurred: Bearer token could not be deserialized from '{responseText}'");
                 }
 
@@ -183,17 +191,20 @@ public class ApiAuth
                 HttpClientFactory.GetHttpClient().DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", bearerToken?.Access_token);
 
-                Console.WriteLine($"Bearer Token Generated: Bearer token is valid until, {bearerToken?.Expires_at}");
+                logWriter.LogWithTimestamp($"Bearer Token Generated: Bearer token is valid until, {bearerToken?.Expires_at}", LogWriter.LogLevel.Info);
             }
             catch (Exception e)
             {
-                Console.Out.Write("Error Generating Token: " + e);
+                // Display popup for acknowledgement
+                MessageBox.Show("An error occurred when generating the bearer token!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                logWriter.LogWithTimestamp($"Error Generating Token: {e}", LogWriter.LogLevel.Error);
             }
             
         }
         else
         {
-            Console.Out.Write("Token does not need to be generated, already exists with enough time.");
+            logWriter.LogWithTimestamp($"Token does not need to be generated, already exists with enough time.", LogWriter.LogLevel.Info);
         }
     }
 
@@ -227,7 +238,8 @@ public class ApiAuth
         }
         catch (Exception e)
         {
-            throw new Exception("Error Occurred: An error occurred when getting the bearer token. " + e);
+            logWriter.LogWithTimestamp($"An error occurred when getting the bearer token. {e}", LogWriter.LogLevel.Error);
+            throw new Exception($"Error Occurred: An error occurred when getting the bearer token. {e}");
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection.Metadata;
+using McenterTest.Logging;
 using McenterTest.Models;
 
 namespace McenterTest.Services;
@@ -13,7 +15,8 @@ namespace McenterTest.Services;
 /// </remarks>
 public class HttpRequests
 {
-    static ApiAuth apiAuth = new();
+    private static ApiAuth apiAuth = new();
+    private static LogWriter logWriter = LogWriter.Instance;
     
     /// <summary>
     /// Sends an HTTP request to the specified URL with the given method and content.
@@ -97,6 +100,16 @@ public class HttpRequests
     /// <exception cref="SystemException">Thrown when the response from the HttpClient is null or if the response indicates an unsuccessful status.</exception>
     public static HttpResponseMessage? httpRequest(string urlExtension, HttpMethod httpMethod, JsonContent requestBody)
     {
+        if (HttpClientFactory.getBaseUrl() == null)
+        {
+            logWriter.LogWithTimestamp("No base url set in HttpClientFactory", LogWriter.LogLevel.Info);
+            logWriter.LogWithTimestamp("Setting base url for HttpClientFactory", LogWriter.LogLevel.Info);
+
+            ApiAuth.getBearerToken();
+
+            logWriter.LogWithTimestamp($"Base URL set: {HttpClientFactory.getBaseUrl()}", LogWriter.LogLevel.Info);
+        }
+
         // concatenate the baseUrl and the extension to get the endpoint
         string requestUrl = HttpClientFactory.getBaseUrl() + urlExtension;
         
@@ -124,9 +137,16 @@ public class HttpRequests
         try
         {
             // send requests
-            // get messages only require the url endpoint / non get messages require the endpoint and a body
-            response = httpMethod.Equals(HttpMethod.Get) ? HttpClientFactory.GetHttpClient().GetAsync(requestUrl).Result :
-                                                            HttpClientFactory.GetHttpClient().SendAsync(request).Result; 
+            if (httpMethod.Equals(HttpMethod.Get))
+            {
+                // get messages only require the url endpoint
+                response = HttpClientFactory.GetHttpClient().GetAsync(requestUrl).Result;
+            }
+            else
+            {
+                // non get messages require the endpoint and a body
+                response = HttpClientFactory.GetHttpClient().SendAsync(request).Result;
+            }
         
             if (response == null)
             {
