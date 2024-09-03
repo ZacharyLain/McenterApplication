@@ -5,7 +5,7 @@ using McenterTest.Models;
 using McenterTest.Services;
 using Newtonsoft.Json;
 
-namespace McenterTest.UI.ModelViewViewModel.View.MmrtSubView;
+namespace McenterTest.UI.MVVM.View.MmrtSubView;
 
 public partial class GetToolInstancesView : UserControl
 {

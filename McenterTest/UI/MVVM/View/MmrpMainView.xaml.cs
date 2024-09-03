@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace McenterTest.UI.ModelViewViewModel.View
+namespace McenterTest.UI.MVVM.View
 {
     /// <summary>
     /// Interaction logic for MmrpMainView.xaml

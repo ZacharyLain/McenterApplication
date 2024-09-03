@@ -1,4 +1,4 @@
-namespace McenterTest.UI.ModelViewViewModel.ViewModel.MmrtSubViewModel
+namespace McenterTest.UI.MVVM.ViewModel.MmrtSubViewModel
 {
     public class GetToolInstancesViewModel
     {

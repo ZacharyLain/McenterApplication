@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModel="clr-namespace:McenterTest.UI.ModelViewViewModel.ViewModel"
+        xmlns:viewModel="clr-namespace:McenterTest.UI.MVVM.ViewModel"
+        xmlns:viewModel1="clr-namespace:McenterTest.UI.MVVM.ViewModel"
         mc:Ignorable="d"
         Height="800" Width="1200"
         WindowStyle="None"
@@ -15,7 +16,7 @@
         Icon="pack://application:,,,/McenterTest;component/Ui/Resources/Small_Logo.png">
     
     <Window.DataContext>
-        <viewModel:MainViewModel/>
+        <viewModel1:MainViewModel/>
     </Window.DataContext>
     
     <Border Background="#1C133C" CornerRadius="20">

@@ -1,10 +1,13 @@
 ﻿<Application x:Class="McenterTest.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:viewModel="clr-namespace:McenterTest.UI.ModelViewViewModel.ViewModel"
-             xmlns:view="clr-namespace:McenterTest.UI.ModelViewViewModel.View"
-             xmlns:mmrtSubViewModel="clr-namespace:McenterTest.UI.ModelViewViewModel.ViewModel.MmrtSubViewModel"
-             xmlns:mmrtSubView="clr-namespace:McenterTest.UI.ModelViewViewModel.View.MmrtSubView"
+             xmlns:viewModel="clr-namespace:McenterTest.UI.MVVM.ViewModel"
+             xmlns:view="clr-namespace:McenterTest.UI.MVVM.View"
+             xmlns:mmrtSubViewModel="clr-namespace:McenterTest.UI.MVVM.ViewModel.MmrtSubViewModel"
+             xmlns:mmrtSubView="clr-namespace:McenterTest.UI.MVVM.View.MmrtSubView"
+             xmlns:mmrpSubView="clr-namespace:McenterTest.UI.MVVM.View.MmrpSubView"
+             xmlns:mmrpSubViewModel="clr-namespace:McenterTest.UI.MVVM.ViewModel.MmrpSubViewModel"
+             xmlns:viewModel1="clr-namespace:McenterTest.UI.MVVM.ViewModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -30,9 +33,15 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:MmrtMainViewModel}">
+            <DataTemplate DataType="{x:Type viewModel1:MmrtMainViewModel}">
                 <view:MmrtMainView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel1:MmrpMainViewModel}">
+                <view:MmrpMainView/>
+            </DataTemplate>
+            
+            
+            <!-- Subview Data Templates -->
             
             <!-- Mmrt Subview Data Templates -->
             <DataTemplate DataType="{x:Type mmrtSubViewModel:GetToolInstancesViewModel}">
@@ -42,6 +51,26 @@
                 <mmrtSubView:CreateToolInstancesView/>
             </DataTemplate>
             <mmrtSubViewModel:GetToolInstancesViewModel x:Key="GetToolInstancesViewModel"/>
+            
+            <!-- Mmrp Subview Data Templates -->
+            <DataTemplate DataType="{x:Type mmrpSubViewModel:GetNCPackagesViewModel}">
+                <mmrpSubView:GetNCPackagesView/>
+            </DataTemplate>
+            
+                <!-- TO BE ADDED -->
+                <DataTemplate DataType="{x:Type mmrpSubViewModel:GetNCPackagesViewModel}">
+                    <mmrpSubView:GetNCPackagesView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type mmrpSubViewModel:CreateNCPackagesViewModel}">
+                    <mmrpSubView:GetNCPackagesView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type mmrpSubViewModel:DeleteNCPackagesViewModel}">
+                    <mmrpSubView:GetNCPackagesView/>
+                </DataTemplate>
+                <!-- TO BE ADDED -->
+            
+            <mmrpSubViewModel:GetNCPackagesViewModel x:Key="GetNcPackagesViewModel"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

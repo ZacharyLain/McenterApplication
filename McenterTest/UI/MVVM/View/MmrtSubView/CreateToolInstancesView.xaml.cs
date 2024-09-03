@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace McenterTest.UI.ModelViewViewModel.View.MmrtSubView;
+namespace McenterTest.UI.MVVM.View.MmrtSubView;
 
 public partial class CreateToolInstancesView : UserControl
 {

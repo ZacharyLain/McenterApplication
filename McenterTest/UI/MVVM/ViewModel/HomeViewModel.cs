@@ -1,4 +1,4 @@
-namespace McenterTest.UI.ModelViewViewModel.ViewModel;
+namespace McenterTest.UI.MVVM.ViewModel;
 
 public class HomeViewModel
 {

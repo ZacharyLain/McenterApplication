@@ -1,7 +1,7 @@
 using McenterTest.UI.Core;
-using McenterTest.UI.ModelViewViewModel.View.MmrtSubView;
+using McenterTest.UI.MVVM.ViewModel;
 
-namespace McenterTest.UI.ModelViewViewModel.ViewModel
+namespace McenterTest.UI.MVVM.ViewModel
 {
     public class MainViewModel : ObservableObject
     {

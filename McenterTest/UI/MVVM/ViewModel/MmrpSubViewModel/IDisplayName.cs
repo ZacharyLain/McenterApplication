@@ -1,4 +1,4 @@
-﻿namespace McenterTest.UI.ModelViewViewModel.ViewModel.MmrpSubViewModel
+﻿namespace McenterTest.UI.MVVM.ViewModel.MmrpSubViewModel
 {
     public class GetNCPackagesViewModel
     {

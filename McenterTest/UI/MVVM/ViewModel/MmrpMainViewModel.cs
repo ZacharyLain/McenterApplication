@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
 using McenterTest.UI.Core;
-using McenterTest.UI.MVVM.ViewModel.MmrtSubViewModel;
+using McenterTest.UI.MVVM.View.MmrpSubView;
 
 namespace McenterTest.UI.MVVM.ViewModel
 {
-    public class MmrtMainViewModel : ObservableObject
+    public class MmrpMainViewModel : ObservableObject
     {
         private object _selectedViewModel;
         public ObservableCollection<object> ViewModels { get; set; }
@@ -20,15 +20,16 @@ namespace McenterTest.UI.MVVM.ViewModel
             }
         }
 
-        public MmrtMainViewModel()
+        public MmrpMainViewModel()
         {
             ViewModels = new ObservableCollection<object>
             {
-                new GetToolInstancesViewModel(),
-                new CreateToolInstancesViewModel(),
+                new GetNCPackagesView(),
+                // new CreateNCPackagesView(),
+                // new DeleteNCPackagesView(),
             };
 
-            GetToolInstanceCommand = new RelayCommand(o => SelectedViewModel = new GetToolInstancesViewModel());
+            GetToolInstanceCommand = new RelayCommand(o => SelectedViewModel = new GetNCPackagesView());
 
             // Set the default view model
             SelectedViewModel = ViewModels[0];
