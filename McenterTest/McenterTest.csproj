@@ -21,18 +21,48 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Navigation\Pages\MainPage.xaml">
+      <Page Update="UI\MVVM\View\View\MmrpSubView\GetNCPackagesView.xaml">
         <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="UI\MVVM\View\MmrpSubView\GetNCPackagesView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="UI\MVVM\View\MmrtSubView\GetToolInstancesView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="UI\MVVM\View\MmrtSubView\CreateToolInstancesView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="UI\MVVM\View\HomeView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="UI\MVVM\View\MmrpMainView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="UI\MVVM\View\MmrtMainView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
       </Page>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="UI\ModelViewViewModel\Model\" />
+      <Folder Include="UI\Images\" />
+      <Folder Include="UI\MVVM\Model\" />
+      <Folder Include="UI\Theme\" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="UI\Resources\Small_Logo.png" />
       <Resource Include="UI\Resources\Small_Logo.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="UI\Resources\Small_Logo.png" />
     </ItemGroup>
 
 </Project>

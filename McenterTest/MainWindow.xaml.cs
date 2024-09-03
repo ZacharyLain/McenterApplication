@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Windows;
-using McenterTest.Navigation;
-using McenterTest.Pages;
+﻿using System.Windows;
 
 namespace McenterTest;
 
