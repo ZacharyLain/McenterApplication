@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="McenterTest.UI.ModelViewViewModel.View.MmrpMainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:McenterTest.UI.ModelViewViewModel.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Transparent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Provide an overview of the API endpoints available through MMRT -->
+        <!-- Give clickable buttons to navigate to each MMRT endpoint -->
+        <Grid Margin="10">
+            <TextBlock Text="MMRT API Endpoints"
+                   Foreground="White"
+                   FontSize="24"
+                   HorizontalAlignment="Left"/>
+            <ComboBox HorizontalAlignment="Right"
+                  Width="300"
+                  Foreground="White"
+                  ItemsSource="{Binding ViewModels}"
+                  SelectedItem="{Binding SelectedViewModel, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                  DisplayMemberPath="DisplayName"
+                  x:Name="cmb"/>
+        </Grid>
+
+        <!-- Content Area -->
+        <Border Grid.Row="1" Margin="10">
+            <ContentControl Content="{Binding SelectedViewModel, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        HorizontalAlignment="Stretch"
+                        Margin="10"/>
+        </Border>
+    </Grid>
+</UserControl>

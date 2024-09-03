@@ -16,11 +16,12 @@ public partial class GetToolInstancesView : UserControl
 
     private void getToolInstances(object sender, RoutedEventArgs e)
     {
-        string responseText = HttpRequests.httpRequest(" /toolassembly/v2/toolinstances", HttpMethod.Get, null).Content.ReadAsStringAsync().Result;
+        string responseText = HttpRequests.httpRequest("/mmr/api/toolassembly/v2/toolinstances", HttpMethod.Get, null).Content.ReadAsStringAsync().Result;
+
+
         var jsonObject = JsonConvert.DeserializeObject(responseText);
         string formattedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
 
         outputBox.Text = formattedJson;
-        Console.Out.WriteLine("\n\n" + formattedJson + "\n\n");
     }
 }
