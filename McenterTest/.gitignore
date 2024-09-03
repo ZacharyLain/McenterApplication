@@ -15,3 +15,10 @@
 # Ignore the clientcredentials and certificate files
 *.crt
 *.json
+
+# Ignore the bin and obj directories
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
