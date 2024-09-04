@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using McenterTest.UI.MVVM.View.MmrtSubView;
 
 namespace McenterTest.UI.MVVM.View
 {
@@ -8,6 +9,7 @@ namespace McenterTest.UI.MVVM.View
         public MmrtMainView()
         {
             InitializeComponent();
+            SelectedViewModel = new GetToolInstancesView();
         }
 
         public static readonly DependencyProperty SelectedViewModelProperty =

@@ -16,7 +16,7 @@
         <!-- Provide an overview of the API endpoints available through MMRT -->
         <!-- Give clickable buttons to navigate to each MMRT endpoint -->
         <Grid Margin="10">
-            <TextBlock Text="MMRT API Endpoints"
+            <TextBlock Text="MMRP API Endpoints"
                    Foreground="White"
                    FontSize="24"
                    HorizontalAlignment="Left"/>
@@ -26,7 +26,8 @@
                   ItemsSource="{Binding ViewModels}"
                   SelectedItem="{Binding SelectedViewModel, RelativeSource={RelativeSource AncestorType=UserControl}}"
                   DisplayMemberPath="DisplayName"
-                  x:Name="cmb"/>
+                  IsSynchronizedWithCurrentItem="True"
+                  x:Name="Dropdown"/>
         </Grid>
 
         <!-- Content Area -->

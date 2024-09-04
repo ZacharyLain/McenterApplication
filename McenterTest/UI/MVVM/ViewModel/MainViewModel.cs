@@ -1,5 +1,4 @@
 using McenterTest.UI.Core;
-using McenterTest.UI.MVVM.ViewModel;
 
 namespace McenterTest.UI.MVVM.ViewModel
 {
@@ -8,7 +7,8 @@ namespace McenterTest.UI.MVVM.ViewModel
         private object _currentView;
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand MmrtViewCommand { get; set; }
-
+        public RelayCommand MmrpViewCommand { get; set; }
+        
         public object CurrentView
         {
             get => _currentView;
@@ -23,6 +23,7 @@ namespace McenterTest.UI.MVVM.ViewModel
         {
             HomeViewCommand = new RelayCommand(o => CurrentView = new HomeViewModel());
             MmrtViewCommand = new RelayCommand(o => CurrentView = new MmrtMainViewModel());
+            MmrpViewCommand = new RelayCommand(o => CurrentView = new MmrpMainViewModel());
 
             // Set the default view
             CurrentView = new HomeViewModel();

@@ -7,7 +7,6 @@
              xmlns:mmrtSubView="clr-namespace:McenterTest.UI.MVVM.View.MmrtSubView"
              xmlns:mmrpSubView="clr-namespace:McenterTest.UI.MVVM.View.MmrpSubView"
              xmlns:mmrpSubViewModel="clr-namespace:McenterTest.UI.MVVM.ViewModel.MmrpSubViewModel"
-             xmlns:viewModel1="clr-namespace:McenterTest.UI.MVVM.ViewModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -33,10 +32,10 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel1:MmrtMainViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:MmrtMainViewModel}">
                 <view:MmrtMainView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel1:MmrpMainViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:MmrpMainViewModel}">
                 <view:MmrpMainView/>
             </DataTemplate>
             
@@ -58,9 +57,6 @@
             </DataTemplate>
             
                 <!-- TO BE ADDED -->
-                <DataTemplate DataType="{x:Type mmrpSubViewModel:GetNCPackagesViewModel}">
-                    <mmrpSubView:GetNCPackagesView/>
-                </DataTemplate>
                 <DataTemplate DataType="{x:Type mmrpSubViewModel:CreateNCPackagesViewModel}">
                     <mmrpSubView:GetNCPackagesView/>
                 </DataTemplate>

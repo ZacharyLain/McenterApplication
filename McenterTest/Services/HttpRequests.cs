@@ -1,8 +1,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Reflection.Metadata;
-using McenterTest.Logging;
+using McenterTest.Utilities;
 using McenterTest.Models;
 
 namespace McenterTest.Services;

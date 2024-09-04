@@ -18,8 +18,7 @@
             <ScrollViewer Grid.Row="0"
                       Margin="10"
                       VerticalScrollBarVisibility="Auto">
-                <TextBox materialDesign:HintAssist.Hint="Tool Instances"
-                       x:Name="outputBox"
+                <TextBox materialDesign:HintAssist.Hint="NC Packages"
                        Foreground="White"
                        FontSize="18"
                        Margin="5"
