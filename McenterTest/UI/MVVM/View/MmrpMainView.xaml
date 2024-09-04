@@ -26,8 +26,7 @@
                   ItemsSource="{Binding ViewModels}"
                   SelectedItem="{Binding SelectedViewModel, RelativeSource={RelativeSource AncestorType=UserControl}}"
                   DisplayMemberPath="DisplayName"
-                  IsSynchronizedWithCurrentItem="True"
-                  x:Name="Dropdown"/>
+                  IsSynchronizedWithCurrentItem="True"/>
         </Grid>
 
         <!-- Content Area -->
